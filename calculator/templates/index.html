@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Calculator using Django</title>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<style>
+		body {
+			font-family: 'Arial', sans-serif;
+			background-color: #f2f2f2;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+		}
+		.calculator {
+			background-color: #ffffff;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			border-radius: 5px;
+			padding: 20px;
+			width: 350px;
+			text-align: center;
+		}
+
+		h1 {
+			color: #2e22d8; 
+			font-family: 'Times New Roman', Times, serif;
+			margin-top: 0;
+		}
+
+		input, button {
+			margin: 5px;
+			padding: 10px;
+			font-size: 16px;
+		}
+
+		input {
+			width: 80%;
+		}
+		button {
+			width: 19%;
+		}
+	</style>
+</head>
+<body>
+	<div class="calculator">
+		<h1>Calculator Using Django</h1>
+		<form method="post" action="{% url 'calculator' %}">
+            {% csrf_token %}
+            <input type="text" id="result" name="result" value="{{ result }}">
+            <br>
+			<button class="btn btn-light" onclick="append('1')">1</button>
+            <button class="btn btn-light" onclick="append('4')">4</button>
+			<button class="btn btn-light" onclick="append('7')">7</button>
+			<button class="btn btn-light" onclick="append('/')">/</button>
+            <br>
+			<button class="btn btn-light" onclick="append('2')">2</button>
+            <button class="btn btn-light" onclick="append('5')">5</button>
+			<button class="btn btn-light" onclick="append('8')">8</button>
+            <button class="btn btn-light" onclick="append('*')">*</button>
+            <br>
+			<button class="btn btn-light" onclick="append('3')">3</button>
+            <button class="btn btn-light" onclick="append('5')">6</button>
+			<button class="btn btn-light" onclick="append('9')">9</button>
+            <button class="btn btn-light" onclick="append('-')">-</button>
+            <br>
+            <button class="btn btn-light" onclick="append('0')">0</button>
+            <button class="btn btn-light" onclick="append('.')">.</button>
+            <button class="btn btn-light" onclick="calculate()">=</button>
+            <button class="btn btn-light" onclick="append('+')">+</button>
+			<button class="btn btn-light" onclick="clearInput()">C</button>
+        </form>
+    </div>
+ 
+    <script>
+        // Update JavaScript functions to handle form submission
+        function append(value) {
+            document.getElementById('result').value += value;
+        }
+ 
+        function clearInput() {
+            document.getElementById('result').value = '';
+        }
+ 
+        function calculate() {
+            try {
+                document.getElementById('result').value = eval(document.getElementById('result').value);
+            } catch (error) {
+                document.getElementById('result').value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
